@@ -1,0 +1,48 @@
+version: '3.3'
+
+services:
+   db:
+     image: mysql
+     volumes:
+        - db_data:/var/lib/mysql
+     environment:
+        - MYSQL_DATABASE=usertest
+        - MYSQL_ROOT_PASSWORD=<Insert Your Password>
+        - SPRING_JPA_HIBERNATE_DDL_AUTO=none
+     ports:
+      - "3309:3306"
+     networks:
+      springboot-mysql-net:
+      
+   server:
+        image: wholeproject 
+        container_name: mainspringapp
+        links:
+            - db
+            - redis-server
+        ports:
+            - "8092:8092"
+        environment:
+            SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/usertest
+            SPRING_DATASOURCE_USERNAME: root
+            SPRING_DATASOURCE_PASSWORD: <Insert Your Password>
+        networks:
+         springboot-mysql-net:
+
+   redis-server:
+       hostname: redis
+       image: redis
+       ports:
+         - "6379:6379"
+         
+   mongo_db:
+      image: mongo
+      container_name: mongoDB  
+      ports:
+        - 27017:27017
+
+networks:
+  springboot-mysql-net:
+  
+volumes:
+  db_data:

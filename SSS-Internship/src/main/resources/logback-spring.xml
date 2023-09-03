@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<configuration>
+	<include resource="org/springframework/boot/logging/logback/defaults.xml" />
+	
+	<springProfile name="default">
+		<include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+		<root level="INFO">
+			<appender-ref ref="CONSOLE" />	
+		</root>
+	</springProfile>
+	    
+	<springProfile name="dev">	 	
+		<property name="LOG_FILE" value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}/}spring.log}"/>
+		<include resource="org/springframework/boot/logging/logback/file-appender.xml" />^	
+		<root level="INFO">
+			<appender-ref ref="FILE" />
+		</root>
+	</springProfile>
+	 
+	<springProfile name="prod">
+		<appender name="FILE-ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+			<!-- <file>logs/app.log</file> -->
+			<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+				<!-- %d is date %i is incrementator (when a new file is logged) [but i do not see a change] -->
+				<fileNamePattern>logs/archived/app.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+				<!-- each archived file, size max 10MB -->
+				<maxFileSize>10MB</maxFileSize>
+				<!-- total size of all archive files, if total size > 20GB, it will delete old archived file -->
+				<totalSizeCap>20GB</totalSizeCap>
+				<!-- 60 days to keep -->
+				<maxHistory>60</maxHistory>
+			</rollingPolicy>
+			<encoder>
+				<!-- The pattern of the log line in the file -->
+				<pattern>%d %p %c{1.} [%t] %m%n</pattern>
+			</encoder>
+		</appender>
+		<!-- root level specifies level to show unless otherwise specified in application.properties-->
+		<root level="INFO">  
+			<appender-ref ref="FILE-ROLLING"/>
+		</root>
+	</springProfile>
+ 
+</configuration>
+
+
+
