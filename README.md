@@ -50,4 +50,3 @@ This project is licensed under the MIT License.
 
 
 By showcasing this application built with industry-standard practices, this repository reflects my commitment to quality software development and continuous learning. I hope this project demonstrates my technical skills and dedication to excellence.
-Feel free to explore the code and reach out if you have any questions or feedback. Thank you for visiting!
