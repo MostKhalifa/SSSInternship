@@ -41,3 +41,13 @@ This was created while doing an intern at Solarus Smart Solutions (SSS).
    - run ```docker build -t image_name .```
    - run ```docker compose up``` in git bash or cmd while in project file. Docker Engine must be running.
 6. If not, run application normally while having Redis and MySQL80 runnning on device.
+
+## Contributions
+Contributions are welcome! Please fork the repository and submit a pull request for any improvements or fixes.
+
+## License
+This project is licensed under the MIT License.
+
+
+By showcasing this application built with industry-standard practices, this repository reflects my commitment to quality software development and continuous learning. I hope this project demonstrates my technical skills and dedication to excellence.
+Feel free to explore the code and reach out if you have any questions or feedback. Thank you for visiting!
